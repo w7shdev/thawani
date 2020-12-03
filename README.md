@@ -19,7 +19,7 @@ please refer to Thawani [developer](https://developer.thawani.om/) Documentation
 
 ### install
 
-`npm i thawani-client `
+`npm i thawani-node `
 
 ### usage
 
