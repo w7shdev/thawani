@@ -1,0 +1,36 @@
+{
+  "name": "thawani_node",
+  "version": "1.0.0",
+  "description": "Thawani API http client ",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx sucrase-node ./src/app.ts",
+    "build": "npx sucrase ./src -d ./dist --transforms typescript,imports",
+    "test": "node ./test/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w7shdev/thawani.git"
+  },
+  "keywords": [
+    "Thawani",
+    "thawani",
+    "Thawani",
+    "api",
+    "thawani",
+    "API"
+  ],
+  "author": "Muhannad AL-Risi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/w7shdev/thawani/issues"
+  },
+  "homepage": "https://github.com/w7shdev/thawani#readme",
+  "devDependencies": {
+    "sucrase": "^3.16.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "dotenv": "^8.2.0"
+  }
+}
