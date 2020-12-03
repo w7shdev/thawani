@@ -8,9 +8,7 @@ export default class Session {
     }
 
     public create(payload: Object): Promise<T> {
-        return this.axios.post('api/v1/checkout/session', {
-            data: payload
-        });
+        return this.axios.post('api/v1/checkout/session', payload);
     }
 
     public find(session_id: string): Promise<T> {

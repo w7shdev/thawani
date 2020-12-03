@@ -3,7 +3,11 @@ import Customer from './endpoints/cutomer';
 import Payments from './endpoints/payment'
 import Endpoint from './helpers/axios'
 import Session from './endpoints/session'
-
+/**
+ * Thawani client class  
+ * @author Muhannad Al-Risi
+ * @version 1.0.0
+ */
 class ThawaniClient {
 
     secret_key: string;
@@ -16,7 +20,9 @@ class ThawaniClient {
     session: Session;
     axios: AxiosInstance;
     /**
-     *
+     * @param {string} secret api secret_key
+     * @param {string} publishable publishable_key 
+     * @param {string} env API environment  
      */
     constructor(secret: string, publishable: string, env: string) {
         this.secret_key = secret;
@@ -29,28 +35,52 @@ class ThawaniClient {
         this.session = new Session(this.axios);
     }
 
-    /** customer endpoints */
+    /**
+     * get the customer 
+     * @param customer_token cutomer token
+     * 
+     * @return Promise
+     */
     public find_customer(customer_token: string): Promise<any> {
         return this.customer.find(customer_token);
     }
-
-    public findAll_customers(params?: Object): Promise<any> {
-        if (params) return this.customer.findAll(params)
+    /**
+     * get all customers 
+     * @param payload params query  
+     * @return  Promise
+     */
+    public findAll_customers(payload?: Object): Promise<any> {
+        if (payload) return this.customer.findAll(payload)
         return this.customer.findAll()
     }
+    /**
+     * create a customer 
+     * @param payload customer unique identifier 
+     * @return Promise
+     */
     public create_customer(payload: Object): Promise<any> {
         return this.customer.create(payload)
     }
+    /**
+     * remove customer 
+     * @param payload customer key token
+     * 
+     * @return Promise 
+     */
     public delete_customer(payload: Object): Promise<any> {
         return this.customer.create(payload);
     }
 
-    /**  payments end points  */
+    /**
+     * get customer payment method 
+     * @param payload customer key
+     * @return Promise 
+     */
     public get_customer_payment(payload: Object): Promise<any> {
         return this.payment.get(payload);
     }
 
-    public remote_cutomer_payment(card_token: string): Promise<any> {
+    public remove_customer_payment(card_token: string): Promise<any> {
         return this.payment.delete(card_token);
     }
 
@@ -61,7 +91,7 @@ class ThawaniClient {
     public find_session(session_id: string): Promise<any> {
         return this.session.find(session_id);
     }
-    public findAll(payload?: object): Promise<any> {
+    public findAll_sessions(payload?: object): Promise<any> {
         if (payload) return this.session.findAll(payload);
 
         return this.session.findAll();
@@ -74,8 +104,5 @@ class ThawaniClient {
         return this.api.get_base_url();
     }
 }
-const app = new ThawaniClient(process.env.SECRET, process.env.PUBLISH, process.env.ENV);
-app.findAll_customers().then((data) => {
-    console.log(data)
-}).catch(err => console.error(err))
+
 export = ThawaniClient

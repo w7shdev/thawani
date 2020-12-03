@@ -8,9 +8,7 @@ export default class Customer {
         this.axios = axios
     }
     public create(payload: Object): Promise<T> {
-        return this.axios.post('api/v1/customers', {
-            data: payload
-        })
+        return this.axios.post('api/v1/customers', payload)
     }
 
     public find(customer_key: string): Promise<T> {
