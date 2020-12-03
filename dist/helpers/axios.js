@@ -1,4 +1,4 @@
-"use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _axios = require('axios'); var _axios2 = _interopRequireDefault(_axios);
+"use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; } function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }var _axios = require('axios'); var _axios2 = _interopRequireDefault(_axios);
 var _dotenv = require('dotenv'); var _dotenv2 = _interopRequireDefault(_dotenv);
 _dotenv2.default.config()
 /**
@@ -6,6 +6,9 @@ _dotenv2.default.config()
  * @author Muhannad Al-Risi
  * @version 1.0.0
  */
+
+const development_uri = _nullishCoalesce(process.env.Thawani_NODE_API_DEV_URI, () => ( 'https://uatcheckout.thawani.om'));
+const production_uri = _nullishCoalesce(process.env.Thawani_NODE_API_DEV_PROD, () => ( 'https://checkout.thawani.om'));
 class Endpoint {
 
     
@@ -20,7 +23,7 @@ class Endpoint {
      * @returns {string} HTTP uri
      */
     get_base_url() {
-        return (this.environment.toLowerCase() == 'dev') ? process.env.DEV : process.env.PROD;
+        return (this.environment.toLowerCase() == 'dev') ? development_uri : production_uri;
     }
     /**
      * set up the Request header 

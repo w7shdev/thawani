@@ -11,7 +11,7 @@ test("Type of module", () => {
 });
 
 test("Test the integration in development environment", () => {
-  expect(api.endpoint()).toBe(process.env.DEV);
+  expect(api.endpoint()).toBe(process.env.Thawani_NODE_API_DEV_URI);
 });
 
 let customer_token = null;
@@ -62,7 +62,11 @@ test("get session token", async () => {
 test("Redirection Route to payment gateway", () => {
   const expected_redirect = api.redirect(new_session);
   const toBe_redirect =
-    process.env.DEV + "/pay/" + new_session + "?key=" + process.env.PUBLISH;
+    process.env.Thawani_NODE_API_DEV_URI +
+    "/pay/" +
+    new_session +
+    "?key=" +
+    process.env.PUBLISH;
   expect(expected_redirect).toBe(toBe_redirect);
 });
 

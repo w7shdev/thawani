@@ -6,6 +6,9 @@ dotenv.config()
  * @author Muhannad Al-Risi
  * @version 1.0.0
  */
+
+const development_uri = process.env.Thawani_NODE_API_DEV_URI ?? 'https://uatcheckout.thawani.om';
+const production_uri = process.env.Thawani_NODE_API_DEV_PROD ?? 'https://checkout.thawani.om';
 class Endpoint {
 
     environment: string;
@@ -20,7 +23,7 @@ class Endpoint {
      * @returns {string} HTTP uri
      */
     get_base_url(): string {
-        return (this.environment.toLowerCase() == 'dev') ? process.env.DEV : process.env.PROD;
+        return (this.environment.toLowerCase() == 'dev') ? development_uri : production_uri;
     }
     /**
      * set up the Request header 
