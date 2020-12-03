@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx sucrase-node ./src/app.ts",
     "build": "npx sucrase ./src -d ./dist --transforms typescript,imports",
-    "test": "node ./test/app.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/w7shdev/thawani#readme",
   "devDependencies": {
+    "jest": "^26.6.3",
     "sucrase": "^3.16.0"
   },
   "dependencies": {
