@@ -23,7 +23,7 @@ please refer to Thawani [developer](https://developer.thawani.om/) Documentation
 ### usage
 
 ```javascript
-const ThawaniClient = require("thawani-client");
+const ThawaniClient = require("thawani-node");
 
 const api = new ThawaniClient(
   "your_secret_key",
@@ -40,10 +40,6 @@ api
   })
   .catch((err) => console.error(err));
 ```
-
-## Disclaimer
-
-This plugin does not do anything with Thawani the provide service it just to save time for developers 👍
 
 ## LICENCE
 
