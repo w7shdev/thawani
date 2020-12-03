@@ -1,25 +1,25 @@
-import { AxiosInstance } from 'axios'
-export default class Session {
+"use strict";Object.defineProperty(exports, "__esModule", {value: true});
+ class Session {
 
-    axios: AxiosInstance;
+    
 
-    constructor(axios: AxiosInstance) {
+    constructor(axios) {
         this.axios = axios;
     }
 
-    public create(payload: Object): Promise<T> {
+     create(payload) {
         return this.axios.post('api/v1/checkout/session', payload);
     }
 
-    public find(session_id: string): Promise<T> {
+     find(session_id) {
         return this.axios.get('api/v1/checkout/session/' + session_id);
     }
 
-    public redirect(session_id: string, publishable_key: string): String {
+     redirect(session_id, publishable_key) {
         return '/pay/' + session_id + "?key=" + publishable_key;
     }
 
-    public findAll(payload?: object): Promise<T> {
+     findAll(payload) {
 
         if (payload) {
             this.axios.get('api/v1/checkout/session/', {
@@ -30,4 +30,4 @@ export default class Session {
 
     }
 
-}
+} exports.default = Session;

@@ -1,21 +1,21 @@
-import { AxiosInstance } from 'axios';
+"use strict";Object.defineProperty(exports, "__esModule", {value: true});
 
-export default class Customer {
+ class Customer {
 
-    axios: AxiosInstance;
+    
 
-    constructor(axios: AxiosInstance) {
+    constructor(axios) {
         this.axios = axios
     }
-    public create(payload: Object): Promise<T> {
+     create(payload) {
         return this.axios.post('api/v1/customers', payload)
     }
 
-    public find(customer_key: string): Promise<T> {
+     find(customer_key) {
         return this.axios.get('api/v1/customers/' + customer_key)
     }
 
-    public findAll(payload?: object): Promise<T> {
+     findAll(payload) {
         if (payload) {
             return this.axios.get('api/v1/customers/', {
                 params: payload
@@ -24,8 +24,8 @@ export default class Customer {
         return this.axios.get('api/v1/customers/');
     }
 
-    public remove(customer_key: string): Promise<T> {
+     remove(customer_key) {
         return this.axios.delete('api/v1/customers/' + customer_key);
     }
 
-}
+} exports.default = Customer;
