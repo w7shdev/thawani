@@ -156,7 +156,7 @@ pass the session id after a success creation to get the full path
 for the payment API
 
 ```js
-const full_redirect_uri = api.get(session_id);
+const full_redirect_uri = api.redirect(session_id);
 ```
 
 ##### Payments methods
