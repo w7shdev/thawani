@@ -1,2 +1,1 @@
-const ThawaniClient = require("./dist/app.js");
-module.exports = ThawaniClient;
+module.exports = require("./dist/app.js");
