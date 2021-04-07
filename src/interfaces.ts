@@ -24,8 +24,26 @@ interface SessionPayload{
     cancel_url: string;
     metadata?: Object;   
 }
+
+interface RefundPayload{ 
+    payment_id: string;
+    reason: string;
+    metadata: object;
+}
+
+interface PaymentIntentPayload{ 
+    client_reference_id :string;
+    return_url: string;
+    metadata?: object;
+    payment_method_id?: string;
+    amount?: number;
+}
+
+
 export {
     SettingConfig,
     Filter,
-    SessionPayload
+    SessionPayload,
+    RefundPayload,
+    PaymentIntentPayload
 }

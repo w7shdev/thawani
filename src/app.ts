@@ -3,7 +3,10 @@ import Customer from './endpoints/customer';
 import Payments from './endpoints/payment'
 import Endpoint from './helpers/axios'
 import Session from './endpoints/session'
-import {SettingConfig} from './interfaces'
+import PaymentTransactions  from './endpoints/PaymentTransactions'
+import Refund from './endpoints/refund'
+import PaymentIntent  from './endpoints/PaymentIntent'
+import {SettingConfig , SessionPayload , Filter} from './interfaces'
 
 /**
  * Thawani client class  
@@ -16,11 +19,14 @@ class ThawaniClient {
     publishable_key: string;
     isProduction: boolean;
     api: Endpoint;
-
+    
+    _axios: AxiosInstance;
     customer: Customer;
     payment: Payments;
     session: Session;
-    axios: AxiosInstance;
+    paymentTransaction: PaymentTransactions;
+    refund: Refund;
+    paymentIntent: PaymentIntent;
     /**
      * @param {string} secret api secret_key
      * @param {string} publishable publishable_key 
@@ -31,14 +37,26 @@ class ThawaniClient {
         this.publishable_key = config.publishableKey;
         this.isProduction = !config.dev; // if dev set to true then the production is false
         this.api = new Endpoint(this.isProduction, this.secret_key);
-        this.axios = this.api.getInstance();
-        this.customer = new Customer(this.axios);
-        this.payment = new Payments(this.axios);
-        this.session = new Session(this.axios);
+        this._axios = this.api.getInstance();
+
+        if(!config.filter)
+        {
+            config.filter = {
+                limit: 10,
+                skip:1
+            }
+        }
+
+        this.customer = new Customer(this._axios ,config.filter);
+        this.payment = new Payments(this._axios);
+        this.session = new Session(this._axios, config.filter);
+        this.paymentTransaction = new PaymentTransactions(this._axios , config.filter);
+        this.refund = new Refund(this._axios , config.filter); 
+        this.paymentIntent = new PaymentIntent(this._axios , config.filter);
     }
 
     public getInstance():AxiosInstance { 
-        return this.axios; 
+        return this._axios; 
     }
     /**
      * This function is used to get the information about a single customer 
@@ -118,7 +136,7 @@ class ThawaniClient {
      * 
      * @return {Promise} response 
      */
-    public create_session(payload: object): Promise<any> {
+    public create_session(payload: SessionPayload): Promise<any> {
         return this.session.create(payload);
     }
     /**
@@ -130,7 +148,7 @@ class ThawaniClient {
      * @return {Promise} response 
      */
     public find_session(session_id: string): Promise<any> {
-        return this.session.find(session_id);
+        return this.session.findSessionByID(session_id);
     }
     /**
      * This function will return all information about sessions
@@ -145,7 +163,7 @@ class ThawaniClient {
      * 
      * @return {Promise} response 
      */
-    public findAll_sessions(payload?: object): Promise<any> {
+    public findAll_sessions(payload?: Filter): Promise<any> {
         if (payload) return this.session.findAll(payload);
 
         return this.session.findAll();
@@ -172,9 +190,5 @@ const client  = new ThawaniClient({
     publishableKey: 'HGvTMLDssJghr9tlN9gr4DVYt0qyBy',
     dev : true
 }); 
-
-console.log(client.axios.defaults.baseURL)
-// const customers  = async () => await client.customer.findAll(); 
-// customers().then( data => console.log(data)).catch(err => console.log(err))
 
 export = ThawaniClient

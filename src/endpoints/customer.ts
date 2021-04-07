@@ -8,9 +8,11 @@ import { Filter } from './../interfaces'
 export default class Customer {
 
     axios: AxiosInstance;
+    filter: Filter
 
-    constructor(axios: AxiosInstance) {
+    constructor(axios: AxiosInstance, filter: Filter) {
         this.axios = axios
+        this.filter = filter
     }
 
     /**
@@ -52,7 +54,9 @@ export default class Customer {
             })
             return data;
         }
-        const {data}:any  = await this.axios.get('api/v1/customers/');
+        const {data}:any  = await this.axios.get('api/v1/customers/', {
+            params: this.filter
+        });
         return data;
     }
     /**

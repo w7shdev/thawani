@@ -8,9 +8,11 @@ import { Filter , SessionPayload} from '../interfaces'
 export default class Session {
 
     axios: AxiosInstance;
+    filter: Filter;
 
-    constructor(axios: AxiosInstance) {
+    constructor(axios: AxiosInstance , filter: Filter) {
         this.axios = axios;
+        this.filter = filter
     }
     /**
      * This endpoint is the first step to create the payment link 
@@ -71,7 +73,9 @@ export default class Session {
 
             return data
         }
-        const {data} = await this.axios.get('api/v1/checkout/session/')
+        const {data} = await this.axios.get('api/v1/checkout/session/', {
+            params: this.filter
+        })
         return data;
     }
 
