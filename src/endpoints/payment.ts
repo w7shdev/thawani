@@ -19,10 +19,14 @@ export default class Payments {
      * @param {Object} payload 
      * @return {Promise} response 
      */
-    public get(payload: object): Promise<any> {
-        return this.axios.get('api/v1/payment_methods', {
-            params: payload
+    public async find(customer_id :  string): Promise<any> {
+        const {data}:any =  await this.axios.get('api/v1/payment_methods', {
+            params: {
+                customerId: customer_id
+            }
         });
+
+        return data; 
     }
     /**
      * This endpoint is used to remove specific payment method for the customer.
@@ -31,8 +35,9 @@ export default class Payments {
      * @param {String} card_token 
      * @return {Promise} response 
      */
-    public delete(card_token: string): Promise<any> {
-        this.axios.delete('api/v1/payment_methods/' + card_token);
+    public async remove(card_token: string): Promise<any> {
+        const  {data}:any = await this.axios.delete('api/v1/payment_methods/' + card_token);
+        return data; 
     }
 
 }

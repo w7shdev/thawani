@@ -3,6 +3,8 @@ import Customer from './endpoints/customer';
 import Payments from './endpoints/payment'
 import Endpoint from './helpers/axios'
 import Session from './endpoints/session'
+import {SettingConfig} from './interfaces'
+
 /**
  * Thawani client class  
  * @author Muhannad Al-Risi
@@ -12,7 +14,7 @@ class ThawaniClient {
 
     secret_key: string;
     publishable_key: string;
-    env: string;
+    isProduction: boolean;
     api: Endpoint;
 
     customer: Customer;
@@ -24,17 +26,20 @@ class ThawaniClient {
      * @param {string} publishable publishable_key 
      * @param {string} env API environment  
      */
-    constructor(secret: string, publishable: string, env: string) {
-        this.secret_key = secret;
-        this.publishable_key = publishable;
-        this.env = env;
-        this.api = new Endpoint(this.env, this.secret_key);
+    constructor(config: SettingConfig) {
+        this.secret_key = config.secretKey;
+        this.publishable_key = config.publishableKey;
+        this.isProduction = !config.dev; // if dev set to true then the production is false
+        this.api = new Endpoint(this.isProduction, this.secret_key);
         this.axios = this.api.getInstance();
         this.customer = new Customer(this.axios);
         this.payment = new Payments(this.axios);
         this.session = new Session(this.axios);
     }
 
+    public getInstance():AxiosInstance { 
+        return this.axios; 
+    }
     /**
      * This function is used to get the information about a single customer 
      * that has been previously registered.
@@ -89,8 +94,8 @@ class ThawaniClient {
      * @param {Object} payload 
      * @return {Promise} response 
      */
-    public get_customer_payment(payload: Object): Promise<any> {
-        return this.payment.get(payload);
+    public get_customer_payment(payload: string): Promise<any> {
+        return this.payment.find(payload);
     }
     /**
      * This function is used to remove specific payment method for the customer.
@@ -100,7 +105,7 @@ class ThawaniClient {
      * @return {Promise} response 
      */
     public remove_customer_payment(card_token: string): Promise<any> {
-        return this.payment.delete(card_token);
+        return this.payment.remove(card_token);
     }
 
     /**
@@ -161,5 +166,15 @@ class ThawaniClient {
         return this.api.get_base_url();
     }
 }
+
+const client  = new ThawaniClient({
+    secretKey : 'rRQ26GcsZzoEhbrP2HZvLYDbn9C9et',
+    publishableKey: 'HGvTMLDssJghr9tlN9gr4DVYt0qyBy',
+    dev : true
+}); 
+
+console.log(client.axios.defaults.baseURL)
+// const customers  = async () => await client.customer.findAll(); 
+// customers().then( data => console.log(data)).catch(err => console.log(err))
 
 export = ThawaniClient

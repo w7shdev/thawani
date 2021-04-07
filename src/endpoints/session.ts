@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios'
+import { Filter , SessionPayload} from '../interfaces'
 /**
  * This class is to handle the session Endpoint
  * 
@@ -21,8 +22,9 @@ export default class Session {
      * 
      * @return {Promise} response 
      */
-    public create(payload: Object): Promise<T> {
-        return this.axios.post('api/v1/checkout/session', payload);
+    public async create(payload: SessionPayload): Promise<T> {
+        const {data} = await this.axios.post('api/v1/checkout/session', payload)
+        return data;
     }
     /**
      * This endpoint will return all information 
@@ -32,8 +34,9 @@ export default class Session {
      * @param {String} session_id  
      * @return {Promise} response 
      */
-    public find(session_id: string): Promise<T> {
-        return this.axios.get('api/v1/checkout/session/' + session_id);
+    public async findSessionByID(session_id: string): Promise<T> {
+        const {data} = await this.axios.get('api/v1/checkout/session/' + session_id);
+        return data
     }
     /**
      *  return the HTTP  query string of the checkout url 
@@ -44,7 +47,7 @@ export default class Session {
      * @return {String} HTTP query string 
      */
     public redirect(session_id: string, publishable_key: string): String {
-        return '/pay/' + session_id + "?key=" + publishable_key;
+        return this.axios.defaults.baseURL+'/pay/' + session_id + "?key=" + publishable_key;
     }
     /**
      * This endpoint will return all information about sessions
@@ -59,15 +62,26 @@ export default class Session {
      * 
      * @return {Promise} response 
      */
-    public findAll(payload?: object): Promise<T> {
+    public async findAll(filter?: Filter): Promise<T> {
 
-        if (payload) {
-            this.axios.get('api/v1/checkout/session/', {
-                params: payload
+        if (filter) {
+            const {data} = await this.axios.get('api/v1/checkout/session/', {
+                params: filter
             })
-        }
-        return this.axios.get('api/v1/checkout/session/')
 
+            return data
+        }
+        const {data} = await this.axios.get('api/v1/checkout/session/')
+        return data;
     }
 
+    public async findSessionByReference(sessionReference:  number) { 
+            const {data} = await this.axios.get('api/v1/checkout/reference/' + sessionReference)
+            return data; 
+    }
+
+    public async findSessionByReceipt(receipt_number: number) { 
+        const { data } = await this.axios.get('api/v1/checkout/receipt/' + receipt_number)
+        return data
+    }
 }

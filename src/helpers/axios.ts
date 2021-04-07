@@ -1,21 +1,16 @@
-import axios, { AxiosInstance, AxiosStatic } from 'axios'
-import dotenv from 'dotenv'
-dotenv.config()
+import axios, { AxiosInstance } from 'axios'
 /**
  * Setup Axios js configuration 
  * @author Muhannad Al-Risi
  * @version 1.0.0
  */
-
-const development_uri = process.env.Thawani_NODE_API_DEV_URI ?? 'https://uatcheckout.thawani.om';
-const production_uri = process.env.Thawani_NODE_API_DEV_PROD ?? 'https://checkout.thawani.om';
 class Endpoint {
 
-    environment: string;
+    isProduction: boolean;
     secret_key: string;
     publishable_key: string;
-    constructor(env: string, secret: string) {
-        this.environment = env;
+    constructor(env: boolean, secret: string) {
+        this.isProduction = env;
         this.secret_key = secret;
     }
     /**
@@ -23,7 +18,7 @@ class Endpoint {
      * @returns {string} HTTP uri
      */
     get_base_url(): string {
-        return (this.environment.toLowerCase() == 'dev') ? development_uri : production_uri;
+        return (this.isProduction) ? 'https://checkout.thawani.om' : 'https://uatcheckout.thawani.om' ;
     }
     /**
      * set up the Request header 
