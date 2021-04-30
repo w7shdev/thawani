@@ -185,10 +185,4 @@ class ThawaniClient {
     }
 }
 
-const client  = new ThawaniClient({
-    secretKey : 'rRQ26GcsZzoEhbrP2HZvLYDbn9C9et',
-    publishableKey: 'HGvTMLDssJghr9tlN9gr4DVYt0qyBy',
-    dev : true
-}); 
-
 export = ThawaniClient
