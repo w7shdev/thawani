@@ -16,7 +16,7 @@ export default class Payments {
      *  to use this end point you must use the customer token/id
      * @Endpoint  api/v1/payment_methods
      * @http_method GET
-     * @param {Object} payload 
+     * @param {string} customer_id 
      * @return {Promise} response 
      */
     public async find(customer_id :  string): Promise<any> {

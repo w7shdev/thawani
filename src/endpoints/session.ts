@@ -20,7 +20,7 @@ export default class Session {
      * 
      * @Endpoint  api/v1/checkout/session
      * @http_method POST  
-     * @param {Object} payload the request body 
+     * @param {SessionPayload} payload the request body 
      * 
      * @return {Promise} response 
      */
@@ -60,7 +60,7 @@ export default class Session {
      * the default set of latest session
      * @Endpoint  api/v1/checkout/session/
      * @http_method GET
-     * @param {Object=} payload query string 
+     * @param {Filter=} filter query string 
      * 
      * @return {Promise} response 
      */
@@ -78,13 +78,29 @@ export default class Session {
         })
         return data;
     }
-
-    public async findSessionByReference(sessionReference:  number) { 
+    /**
+     * This endpoint will return all information about sessions 
+     * as per the passed reference number parameter.
+     * @Endpoint  api/v1/checkout/reference/
+     * @http_method GET
+     * @param {number} sessionReference Session reference 
+     * 
+     * @return {Promise} response 
+     */
+    public async findSessionByReference(sessionReference:  number): Promise<any> { 
             const {data} = await this.axios.get('api/v1/checkout/reference/' + sessionReference)
             return data; 
     }
-
-    public async findSessionByReceipt(receipt_number: number) { 
+    /**
+     * This endpoint will return all information about sessions 
+     * as per the passed receipt number parameter.
+     * @Endpoint  api/v1/checkout/receipt/
+     * @http_method GET
+     * @param {number} receipt_number receipt number 
+     * 
+     * @return {Promise} response 
+     */
+    public async findSessionByReceipt(receipt_number: number): Promise<any> { 
         const { data } = await this.axios.get('api/v1/checkout/receipt/' + receipt_number)
         return data
     }

@@ -20,7 +20,7 @@ export default class Customer {
      * session creation 
      * @Endpoint api/v1/customers
      * @http_method POST
-     * @param {string} payload 
+     * @param {string} customer_id 
      * @return {Promise} response 
      */
     public async create(customer_id: string): Promise<any> {
