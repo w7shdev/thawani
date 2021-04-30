@@ -20,11 +20,13 @@ export default class Customer {
      * session creation 
      * @Endpoint api/v1/customers
      * @http_method POST
-     * @param {Object} payload 
+     * @param {string} payload 
      * @return {Promise} response 
      */
-    public async create(payload: Object): Promise<T> {
-        const {data}:any = this.axios.post('api/v1/customers', payload)
+    public async create(customer_id: string): Promise<any> {
+        const {data}:any = await this.axios.post('api/v1/customers',{ 
+            'client_customer_id' : customer_id
+        });
         return data
     }
     /**
@@ -35,7 +37,7 @@ export default class Customer {
      * @param {string} customer_key or customer token 
      * @return {Promise} response 
      */
-    public async find(customer_key: string): Promise<T> {
+    public async find(customer_key: string): Promise<any> {
         const {data} : any = await this.axios.get('api/v1/customers/' + customer_key); 
         return data
     }
@@ -47,7 +49,7 @@ export default class Customer {
      * @param {Object} payload http query string 
      * @return {Promise} response 
      */
-     public async findAll(filter?: Filter): Promise<T> {
+     public async findAll(filter?: Filter): Promise<any> {
         if (filter) {
             const {data}:any = await this.axios.get('api/v1/customers/', {
                 params: filter
@@ -67,7 +69,7 @@ export default class Customer {
      * @param {String} customer_key
      * @return {Promise} response 
      */
-    public async remove(customer_key: string): Promise<T> {
+    public async remove(customer_key: string): Promise<any> {
         const {data} : any = await this.axios.delete('api/v1/customers/' + customer_key);
         return data;
     }
