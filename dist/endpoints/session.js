@@ -1,4 +1,5 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true});
+
 /**
  * This class is to handle the session Endpoint
  * 
@@ -7,9 +8,11 @@
  class Session {
 
     
+    
 
-    constructor(axios) {
+    constructor(axios , filter) {
         this.axios = axios;
+        this.filter = filter
     }
     /**
      * This endpoint is the first step to create the payment link 
@@ -17,12 +20,13 @@
      * 
      * @Endpoint  api/v1/checkout/session
      * @http_method POST  
-     * @param {Object} payload the request body 
+     * @param {SessionPayload} payload the request body 
      * 
      * @return {Promise} response 
      */
-     create(payload) {
-        return this.axios.post('api/v1/checkout/session', payload);
+     async create(payload) {
+        const {data} = await this.axios.post('api/v1/checkout/session', payload)
+        return data;
     }
     /**
      * This endpoint will return all information 
@@ -32,8 +36,9 @@
      * @param {String} session_id  
      * @return {Promise} response 
      */
-     find(session_id) {
-        return this.axios.get('api/v1/checkout/session/' + session_id);
+     async findSessionByID(session_id) {
+        const {data} = await this.axios.get('api/v1/checkout/session/' + session_id);
+        return data
     }
     /**
      *  return the HTTP  query string of the checkout url 
@@ -44,7 +49,7 @@
      * @return {String} HTTP query string 
      */
      redirect(session_id, publishable_key) {
-        return '/pay/' + session_id + "?key=" + publishable_key;
+        return this.axios.defaults.baseURL+'/pay/' + session_id + "?key=" + publishable_key;
     }
     /**
      * This endpoint will return all information about sessions
@@ -55,19 +60,48 @@
      * the default set of latest session
      * @Endpoint  api/v1/checkout/session/
      * @http_method GET
-     * @param {Object=} payload query string 
+     * @param {Filter=} filter query string 
      * 
      * @return {Promise} response 
      */
-     findAll(payload) {
+     async findAll(filter) {
 
-        if (payload) {
-            this.axios.get('api/v1/checkout/session/', {
-                params: payload
+        if (filter) {
+            const {data} = await this.axios.get('api/v1/checkout/session/', {
+                params: filter
             })
+
+            return data
         }
-        return this.axios.get('api/v1/checkout/session/')
-
+        const {data} = await this.axios.get('api/v1/checkout/session/', {
+            params: this.filter
+        })
+        return data;
     }
-
+    /**
+     * This endpoint will return all information about sessions 
+     * as per the passed reference number parameter.
+     * @Endpoint  api/v1/checkout/reference/
+     * @http_method GET
+     * @param {number} sessionReference Session reference 
+     * 
+     * @return {Promise} response 
+     */
+     async findSessionByReference(sessionReference) { 
+            const {data} = await this.axios.get('api/v1/checkout/reference/' + sessionReference)
+            return data; 
+    }
+    /**
+     * This endpoint will return all information about sessions 
+     * as per the passed receipt number parameter.
+     * @Endpoint  api/v1/checkout/receipt/
+     * @http_method GET
+     * @param {number} receipt_number receipt number 
+     * 
+     * @return {Promise} response 
+     */
+     async findSessionByReceipt(receipt_number) { 
+        const { data } = await this.axios.get('api/v1/checkout/receipt/' + receipt_number)
+        return data
+    }
 } exports.default = Session;

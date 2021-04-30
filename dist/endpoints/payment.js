@@ -16,13 +16,17 @@
      *  to use this end point you must use the customer token/id
      * @Endpoint  api/v1/payment_methods
      * @http_method GET
-     * @param {Object} payload 
+     * @param {string} customer_id 
      * @return {Promise} response 
      */
-     get(payload) {
-        return this.axios.get('api/v1/payment_methods', {
-            params: payload
+     async find(customer_id ) {
+        const {data} =  await this.axios.get('api/v1/payment_methods', {
+            params: {
+                customerId: customer_id
+            }
         });
+
+        return data; 
     }
     /**
      * This endpoint is used to remove specific payment method for the customer.
@@ -31,8 +35,9 @@
      * @param {String} card_token 
      * @return {Promise} response 
      */
-     delete(card_token) {
-        this.axios.delete('api/v1/payment_methods/' + card_token);
+     async remove(card_token) {
+        const  {data} = await this.axios.delete('api/v1/payment_methods/' + card_token);
+        return data; 
     }
 
 } exports.default = Payments;
