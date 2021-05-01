@@ -14,11 +14,8 @@ var _PaymentIntent = require('./endpoints/PaymentIntent'); var _PaymentIntent2 =
  * @since 1.0.0
  */
 class ThawaniClient {
-
     /**
-     * @param {string} secret api secret_key
-     * @param {string} publishable publishable_key 
-     * @param {string} env API environment  
+     * @param {SettingConfig} config
      */
     constructor(config) {
         this.secret_key = config.secretKey;

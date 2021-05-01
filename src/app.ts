@@ -28,9 +28,7 @@ class ThawaniClient {
     refund: Refund;
     paymentIntent: PaymentIntent;
     /**
-     * @param {string} secret api secret_key
-     * @param {string} publishable publishable_key 
-     * @param {string} env API environment  
+     * @param {SettingConfig} config
      */
     constructor(config: SettingConfig) {
         this.secret_key = config.secretKey;
