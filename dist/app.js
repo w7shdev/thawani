@@ -14,6 +14,19 @@ var _PaymentIntent = require('./endpoints/PaymentIntent'); var _PaymentIntent2 =
  * @since 1.0.0
  */
 class ThawaniClient {
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * @param {SettingConfig} config
      */
@@ -49,7 +62,7 @@ class ThawaniClient {
      * @return {String} full uri 
      */
      redirect(session_id) {
-        return this.endpoint() + this.session.redirect(session_id, this.publishable_key);
+        return this.session.redirect(session_id, this.publishable_key);
     }
     /**
      * Get the endpoint base url

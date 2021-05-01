@@ -62,7 +62,7 @@ class ThawaniClient {
      * @return {String} full uri 
      */
     public redirect(session_id: string): string {
-        return this.endpoint() + this.session.redirect(session_id, this.publishable_key);
+        return this.session.redirect(session_id, this.publishable_key);
     }
     /**
      * Get the endpoint base url

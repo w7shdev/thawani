@@ -48,7 +48,7 @@ export default class Session {
      * 
      * @return {String} HTTP query string 
      */
-    public redirect(session_id: string, publishable_key: string): String {
+    public redirect(session_id: string, publishable_key: string): string {
         return this.axios.defaults.baseURL+'/pay/' + session_id + "?key=" + publishable_key;
     }
     /**
