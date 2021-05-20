@@ -12,7 +12,10 @@ This package helps to make easier integration in your web-app / application
 - Async `Promises`
 - Built with `axiosjs` 🔥
 - Fast ✈️
-
+## Install 
+```
+npm i thawani-node
+```
 ## Documentation
 Version 1.1.0 may break your application please check the documentation for migrations
 [Documentation](https://w7shdev.github.io/thawani-docs/)
