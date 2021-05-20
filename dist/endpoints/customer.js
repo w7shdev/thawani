@@ -1,4 +1,5 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true});
+
 /**
  * This class is to handle the Customer Endpoint
  * 
@@ -7,20 +8,26 @@
  class Customer {
 
     
+    
 
-    constructor(axios) {
+    constructor(axios, filter) {
         this.axios = axios
+        this.filter = filter
     }
+
     /**
      * Create customer token in order to use it for
      * session creation 
      * @Endpoint api/v1/customers
      * @http_method POST
-     * @param {Object} payload 
+     * @param {string} customer_id 
      * @return {Promise} response 
      */
-     create(payload) {
-        return this.axios.post('api/v1/customers', payload)
+     async create(customer_id) {
+        const {data} = await this.axios.post('api/v1/customers',{ 
+            'client_customer_id' : customer_id
+        });
+        return data
     }
     /**
      * This endpoint is used to get the information about a single customer 
@@ -30,8 +37,9 @@
      * @param {string} customer_key or customer token 
      * @return {Promise} response 
      */
-     find(customer_key) {
-        return this.axios.get('api/v1/customers/' + customer_key)
+     async find(customer_key) {
+        const {data}  = await this.axios.get('api/v1/customers/' + customer_key); 
+        return data
     }
     /**
      * This endpoint is used to get the information about all customers 
@@ -41,13 +49,17 @@
      * @param {Object} payload http query string 
      * @return {Promise} response 
      */
-     findAll(payload) {
-        if (payload) {
-            return this.axios.get('api/v1/customers/', {
-                params: payload
+      async findAll(filter) {
+        if (filter) {
+            const {data} = await this.axios.get('api/v1/customers/', {
+                params: filter
             })
+            return data;
         }
-        return this.axios.get('api/v1/customers/');
+        const {data}  = await this.axios.get('api/v1/customers/', {
+            params: this.filter
+        });
+        return data;
     }
     /**
      * This endpoint is used to remove a single customer 
@@ -57,8 +69,9 @@
      * @param {String} customer_key
      * @return {Promise} response 
      */
-     remove(customer_key) {
-        return this.axios.delete('api/v1/customers/' + customer_key);
+     async remove(customer_key) {
+        const {data}  = await this.axios.delete('api/v1/customers/' + customer_key);
+        return data;
     }
 
 } exports.default = Customer;

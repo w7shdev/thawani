@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios'
+import { Filter , SessionPayload} from '../interfaces'
 /**
  * This class is to handle the session Endpoint
  * 
@@ -7,9 +8,11 @@ import { AxiosInstance } from 'axios'
 export default class Session {
 
     axios: AxiosInstance;
+    filter: Filter;
 
-    constructor(axios: AxiosInstance) {
+    constructor(axios: AxiosInstance , filter: Filter) {
         this.axios = axios;
+        this.filter = filter
     }
     /**
      * This endpoint is the first step to create the payment link 
@@ -17,12 +20,13 @@ export default class Session {
      * 
      * @Endpoint  api/v1/checkout/session
      * @http_method POST  
-     * @param {Object} payload the request body 
+     * @param {SessionPayload} payload the request body 
      * 
      * @return {Promise} response 
      */
-    public create(payload: Object): Promise<T> {
-        return this.axios.post('api/v1/checkout/session', payload);
+    public async create(payload: SessionPayload): Promise<T> {
+        const {data} = await this.axios.post('api/v1/checkout/session', payload)
+        return data;
     }
     /**
      * This endpoint will return all information 
@@ -32,8 +36,9 @@ export default class Session {
      * @param {String} session_id  
      * @return {Promise} response 
      */
-    public find(session_id: string): Promise<T> {
-        return this.axios.get('api/v1/checkout/session/' + session_id);
+    public async findSessionByID(session_id: string): Promise<T> {
+        const {data} = await this.axios.get('api/v1/checkout/session/' + session_id);
+        return data
     }
     /**
      *  return the HTTP  query string of the checkout url 
@@ -43,8 +48,8 @@ export default class Session {
      * 
      * @return {String} HTTP query string 
      */
-    public redirect(session_id: string, publishable_key: string): String {
-        return '/pay/' + session_id + "?key=" + publishable_key;
+    public redirect(session_id: string, publishable_key: string): string {
+        return this.axios.defaults.baseURL+'/pay/' + session_id + "?key=" + publishable_key;
     }
     /**
      * This endpoint will return all information about sessions
@@ -55,19 +60,48 @@ export default class Session {
      * the default set of latest session
      * @Endpoint  api/v1/checkout/session/
      * @http_method GET
-     * @param {Object=} payload query string 
+     * @param {Filter=} filter query string 
      * 
      * @return {Promise} response 
      */
-    public findAll(payload?: object): Promise<T> {
+    public async findAll(filter?: Filter): Promise<T> {
 
-        if (payload) {
-            this.axios.get('api/v1/checkout/session/', {
-                params: payload
+        if (filter) {
+            const {data} = await this.axios.get('api/v1/checkout/session/', {
+                params: filter
             })
+
+            return data
         }
-        return this.axios.get('api/v1/checkout/session/')
-
+        const {data} = await this.axios.get('api/v1/checkout/session/', {
+            params: this.filter
+        })
+        return data;
     }
-
+    /**
+     * This endpoint will return all information about sessions 
+     * as per the passed reference number parameter.
+     * @Endpoint  api/v1/checkout/reference/
+     * @http_method GET
+     * @param {number} sessionReference Session reference 
+     * 
+     * @return {Promise} response 
+     */
+    public async findSessionByReference(sessionReference:  number): Promise<any> { 
+            const {data} = await this.axios.get('api/v1/checkout/reference/' + sessionReference)
+            return data; 
+    }
+    /**
+     * This endpoint will return all information about sessions 
+     * as per the passed receipt number parameter.
+     * @Endpoint  api/v1/checkout/receipt/
+     * @http_method GET
+     * @param {number} receipt_number receipt number 
+     * 
+     * @return {Promise} response 
+     */
+    public async findSessionByReceipt(receipt_number: number): Promise<any> { 
+        const { data } = await this.axios.get('api/v1/checkout/receipt/' + receipt_number)
+        return data
+    }
 }
