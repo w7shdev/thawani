@@ -18,7 +18,8 @@ declare interface Products {
 declare interface SessionPayload{ 
     client_reference_id : any; 
     products: Array<Products>;
-    success_url: string; 
+    success_url: string;
+    mode: string;
     cancel_url: string;
     metadata?: Object;   
 }
