@@ -21,6 +21,9 @@ declare interface SessionPayload{
     success_url: string;
     mode: string;
     cancel_url: string;
+    customer_id?: string;
+    save_card_on_success?: boolean;
+    plan_id?: string;
     metadata?: Object;   
 }
 
