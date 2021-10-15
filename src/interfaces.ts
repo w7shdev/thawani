@@ -1,5 +1,3 @@
-
-
 interface Filter{ 
     skip: number;
     limit: number 
