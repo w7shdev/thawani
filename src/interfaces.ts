@@ -18,7 +18,8 @@ interface Products {
     quantity: number; 
 }
 interface SessionPayload{ 
-    client_reference_id : any; 
+    client_reference_id : any;
+    mode: string;
     products: Array<Products>;
     success_url: string; 
     cancel_url: string;
