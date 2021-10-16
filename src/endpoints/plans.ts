@@ -11,5 +11,11 @@ export default class Plans {
     constructor(axios: AxiosInstance) {
         this.axios = axios;
     }
-    
+
+    public async create(){}
+
+    public async find(){}
+
+    public async findAll(){}
+
 }
