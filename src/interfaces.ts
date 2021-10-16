@@ -1,5 +1,3 @@
-
-
 interface Filter{ 
     skip: number;
     limit: number 
@@ -17,9 +15,14 @@ interface Products {
     unit_amount: number;
     quantity: number; 
 }
+
 interface SessionPayload{ 
-    client_reference_id : any; 
+    client_reference_id : any;
+    mode: string;
     products: Array<Products>;
+    customer_id?: string;
+    save_card_on_success?: boolean;
+    plan_id?: string;
     success_url: string; 
     cancel_url: string;
     metadata?: Object;   
