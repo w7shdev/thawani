@@ -10,7 +10,7 @@ export default class Plans {
     axios: AxiosInstance;
     filter: Filter;
 
-    constructor(axios: AxiosInstance, fiter: Filter) {
+    constructor(axios: AxiosInstance, filter: Filter) {
         this.axios = axios;
     }
 
