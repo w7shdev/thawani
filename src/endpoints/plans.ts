@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios'
+import { Filter } from './../interfaces'
 /**
  * This class is to handle the Payment Endpoint
  * 
@@ -7,8 +8,9 @@ import { AxiosInstance } from 'axios'
 export default class Plans { 
 
     axios: AxiosInstance;
+    filter: Filter;
 
-    constructor(axios: AxiosInstance) {
+    constructor(axios: AxiosInstance, fiter: Filter) {
         this.axios = axios;
     }
 
@@ -26,6 +28,6 @@ export default class Plans {
         return data
     }
 
-    public async findAll(){}
+    public async findAll(filter? : Filter){}
 
 }
