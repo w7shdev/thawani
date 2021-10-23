@@ -28,7 +28,14 @@ export default class Plans {
         const {data} = await this.axios.get('api/v1/plans/' + plan_id )
         return data
     }
-
+    /**
+     * This endpoint is used to get the information about all plans 
+     * that have been previously registered.
+     * @Endpoint api/v1/plans/
+     * @http_method GET
+     * @param {Object} filter http query string 
+     * @return {Promise} response 
+     */
     public async findAll(filter? : Filter){
 
         if (filter) { 
