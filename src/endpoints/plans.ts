@@ -14,7 +14,13 @@ export default class Plans {
         this.axios = axios
         this.filter = filter
     }
-
+    /**
+     * Create plan that can be used for billing cycle
+     * @Endpoint api/v1/plans
+     * @http_method POST
+     * @param {PlansPayload} payload 
+     * @return {Promise} response 
+     */
     public async create(payload: PlansPayload){
         const {data}: any = this.axios.post('api/v1/plans/' , payload)
         return data
