@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios'
-import { Filter } from './../interfaces'
+import { Filter , PlansPayload } from './../interfaces'
 /**
  * This class is to handle the Payment Endpoint
  * 
@@ -15,7 +15,10 @@ export default class Plans {
         this.filter = filter
     }
 
-    public async create(){}
+    public async create(payload: PlansPayload){
+        const {data}: any = this.axios.post('api/v1/plans/' , payload)
+        return data
+    }
     /**
      * This endpoint is used to get the information about a single plan
      * that has been previously created.
