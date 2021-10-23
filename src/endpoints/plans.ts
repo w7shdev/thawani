@@ -11,7 +11,8 @@ export default class Plans {
     filter: Filter;
 
     constructor(axios: AxiosInstance, filter: Filter) {
-        this.axios = axios;
+        this.axios = axios
+        this.filter = filter
     }
 
     public async create(){}
