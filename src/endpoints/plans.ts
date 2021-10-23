@@ -29,6 +29,19 @@ export default class Plans {
         return data
     }
 
-    public async findAll(filter? : Filter){}
+    public async findAll(filter? : Filter){
+
+        if (filter) { 
+            const {data} : any = this.axios.get('api/v1/plans', {
+                params: filter
+            });
+            return  data
+        }
+
+        const {data}:any = await this.axios.get('api/v1/plans' , {
+            params: this.filter
+        });
+        return data
+    }
 
 }
