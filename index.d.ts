@@ -40,6 +40,13 @@ declare interface PaymentIntentPayload{
     payment_method_id?: string;
     amount?: number;
 }
+declare interface PlansPayload {
+    name: string;
+    amount: number;
+    interval:  string;
+    description: string;
+    matadata?: Object;
+}
 
 declare class Customer {
     /**
