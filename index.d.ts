@@ -40,6 +40,13 @@ declare interface PaymentIntentPayload{
     payment_method_id?: string;
     amount?: number;
 }
+declare interface PlansPayload {
+    name: string;
+    amount: number;
+    interval:  string;
+    description: string;
+    matadata?: Object;
+}
 
 declare class Customer {
     /**
@@ -272,6 +279,37 @@ declare class PaymentIntent{
 
 
 }
+declare class Plans { 
+
+    /**
+     * Create plan that can be used for billing cycle
+     * @Endpoint api/v1/plans
+     * @http_method POST
+     * @param {PlansPayload} payload 
+     * @return {Promise} response 
+     */
+    create(payload: PlansPayload) : Promise<any>;
+    /**
+     * This endpoint is used to get the information about a single plan
+     * that has been previously created.
+     * @Endpoint api/v1/plans/
+     * @http_method GET
+     * @param {string} plan_id  plans ID
+     * @return {Promise} response 
+     */
+    find(plan_id : string) : Promise<any>;
+    /**
+     * This endpoint is used to get the information about all plans 
+     * that have been previously registered.
+     * @Endpoint api/v1/plans/
+     * @http_method GET
+     * @param {Object} filter http query string 
+     * @return {Promise} response 
+     */
+    findAll(filter? : Filter) : Promise<any>;
+
+}
+
 /**
  * Thawani client class  
  * @author Muhannad Al-Risi

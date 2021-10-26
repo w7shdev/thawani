@@ -42,11 +42,20 @@ interface PaymentIntentPayload{
     amount?: number;
 }
 
+interface PlansPayload {
+    name: string;
+    amount: number;
+    interval:  string;
+    description: string;
+    matadata?: Object;
+}
+
 
 export {
     SettingConfig,
     Filter,
     SessionPayload,
     RefundPayload,
-    PaymentIntentPayload
+    PaymentIntentPayload,
+    PlansPayload
 }
