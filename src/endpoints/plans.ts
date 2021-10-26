@@ -21,7 +21,7 @@ export default class Plans {
      * @param {PlansPayload} payload 
      * @return {Promise} response 
      */
-    public async create(payload: PlansPayload){
+    public async create(payload: PlansPayload) : Promise<any>{
         const {data}: any = this.axios.post('api/v1/plans/' , payload)
         return data
     }
@@ -45,7 +45,7 @@ export default class Plans {
      * @param {Object} filter http query string 
      * @return {Promise} response 
      */
-    public async findAll(filter? : Filter){
+    public async findAll(filter? : Filter) : Promise<any>{
 
         if (filter) { 
             const {data} : any = this.axios.get('api/v1/plans', {
