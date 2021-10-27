@@ -323,7 +323,7 @@ declare class Subscription {
      * that has been previously created.
      * @Endpoint api/v1/subscription/
      * @http_method GET
-     * @param {string} subscription_id  plans ID
+     * @param {string} subscription_id  subscription ID
      * @return {Promise} response 
      */
     find(subscription_id : string) : Promise<any>;
