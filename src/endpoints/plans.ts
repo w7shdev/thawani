@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { Filter , PlansPayload } from './../interfaces'
 /**
- * This class is to handle the Payment Endpoint
+ * This class is to handle the Plans Endpoint
  * 
  * @since 1.1.1
  */
