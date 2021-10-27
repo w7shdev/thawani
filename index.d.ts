@@ -352,6 +352,7 @@ declare class ThawaniClient {
     refund: Refund;
     paymentIntent: PaymentIntent;
     subscription: Subscription;
+    plans: Plans;
     /**
      * @param {SettingConfig} config
      */
