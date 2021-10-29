@@ -2,3 +2,4 @@ node_modules
 test
 .env
 jest.config.js
+src
