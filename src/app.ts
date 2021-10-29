@@ -6,6 +6,8 @@ import Session from './endpoints/session'
 import PaymentTransactions  from './endpoints/PaymentTransactions'
 import Refund from './endpoints/refund'
 import PaymentIntent  from './endpoints/PaymentIntent'
+import Plans from "./endpoints/plans"
+import Subscription from './endpoints/subscription'
 import {SettingConfig , SessionPayload , Filter} from './interfaces'
 
 /**
@@ -27,6 +29,8 @@ class ThawaniClient {
     paymentTransaction: PaymentTransactions;
     refund: Refund;
     paymentIntent: PaymentIntent;
+    plans : Plans;
+    subscription: Subscription;
     /**
      * @param {SettingConfig} config
      */
@@ -51,6 +55,8 @@ class ThawaniClient {
         this.paymentTransaction = new PaymentTransactions(this._axios , config.filter);
         this.refund = new Refund(this._axios , config.filter); 
         this.paymentIntent = new PaymentIntent(this._axios , config.filter);
+        this.plans = new Plans(this._axios ,config.filter);
+        this.subscription = new Subscription(this._axios , config.filter);
     }
 
     public getInstance():AxiosInstance { 

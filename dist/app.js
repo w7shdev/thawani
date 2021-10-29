@@ -6,6 +6,8 @@ var _session = require('./endpoints/session'); var _session2 = _interopRequireDe
 var _PaymentTransactions = require('./endpoints/PaymentTransactions'); var _PaymentTransactions2 = _interopRequireDefault(_PaymentTransactions);
 var _refund = require('./endpoints/refund'); var _refund2 = _interopRequireDefault(_refund);
 var _PaymentIntent = require('./endpoints/PaymentIntent'); var _PaymentIntent2 = _interopRequireDefault(_PaymentIntent);
+var _plans = require('./endpoints/plans'); var _plans2 = _interopRequireDefault(_plans);
+var _subscription = require('./endpoints/subscription'); var _subscription2 = _interopRequireDefault(_subscription);
 
 
 /**
@@ -15,6 +17,8 @@ var _PaymentIntent = require('./endpoints/PaymentIntent'); var _PaymentIntent2 =
  */
 class ThawaniClient {
 
+    
+    
     
     
     
@@ -51,6 +55,8 @@ class ThawaniClient {
         this.paymentTransaction = new (0, _PaymentTransactions2.default)(this._axios , config.filter);
         this.refund = new (0, _refund2.default)(this._axios , config.filter); 
         this.paymentIntent = new (0, _PaymentIntent2.default)(this._axios , config.filter);
+        this.plans = new (0, _plans2.default)(this._axios ,config.filter);
+        this.subscription = new (0, _subscription2.default)(this._axios , config.filter);
     }
 
      getInstance() { 

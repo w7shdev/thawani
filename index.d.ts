@@ -18,8 +18,12 @@ declare interface Products {
 declare interface SessionPayload{ 
     client_reference_id : any; 
     products: Array<Products>;
-    success_url: string; 
+    success_url: string;
+    mode: string;
     cancel_url: string;
+    customer_id?: string;
+    save_card_on_success?: boolean;
+    plan_id?: string;
     metadata?: Object;   
 }
 
@@ -35,6 +39,13 @@ declare interface PaymentIntentPayload{
     metadata?: object;
     payment_method_id?: string;
     amount?: number;
+}
+declare interface PlansPayload {
+    name: string;
+    amount: number;
+    interval:  string;
+    description: string;
+    matadata?: Object;
 }
 
 declare class Customer {
@@ -268,6 +279,64 @@ declare class PaymentIntent{
 
 
 }
+declare class Plans { 
+
+    /**
+     * Create plan that can be used for billing cycle
+     * @Endpoint api/v1/plans
+     * @http_method POST
+     * @param {PlansPayload} payload 
+     * @return {Promise} response 
+     */
+    create(payload: PlansPayload) : Promise<any>;
+    /**
+     * This endpoint is used to get the information about a single plan
+     * that has been previously created.
+     * @Endpoint api/v1/plans/
+     * @http_method GET
+     * @param {string} plan_id  plans ID
+     * @return {Promise} response 
+     */
+    find(plan_id : string) : Promise<any>;
+    /**
+     * This endpoint is used to get the information about all plans 
+     * that have been previously registered.
+     * @Endpoint api/v1/plans/
+     * @http_method GET
+     * @param {Object} filter http query string 
+     * @return {Promise} response 
+     */
+    findAll(filter? : Filter) : Promise<any>;
+
+}
+declare class Subscription { 
+    /**
+     * Cancel Subscription, by providing subscription_id.
+     * @Endpoint api/v1/subscriptions/{subscription_id}/cancel
+     * @http_method POST
+     * @param {string} subscription_id
+     * @return {Promise} response 
+     */
+    remove(subscription_id: string) : Promise<any>;
+    /**
+     * This endpoint is used to get the information about a single subscription
+     * that has been previously created.
+     * @Endpoint api/v1/subscription/
+     * @http_method GET
+     * @param {string} subscription_id  subscription ID
+     * @return {Promise} response 
+     */
+    find(subscription_id : string) : Promise<any>;
+    /**
+     * This endpoint is used to get the information about all subscriptions 
+     * that have been previously registered.
+     * @Endpoint api/v1/subscriptions/
+     * @http_method GET
+     * @param {Object} filter http query string 
+     * @return {Promise} response 
+     */
+    findAll(filter? : Filter) : Promise<any>;
+}
 /**
  * Thawani client class  
  * @author Muhannad Al-Risi
@@ -282,6 +351,8 @@ declare class ThawaniClient {
     paymentTransaction: PaymentTransactions;
     refund: Refund;
     paymentIntent: PaymentIntent;
+    subscription: Subscription;
+    plans: Plans;
     /**
      * @param {SettingConfig} config
      */
