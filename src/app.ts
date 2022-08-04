@@ -74,7 +74,7 @@ class ThawaniClient {
      * Get the endpoint base url
      * @return {String} base url 
      */
-    public endpoint() {
+    public endpoint() : string {
         return this.api.get_base_url();
     }
 }
