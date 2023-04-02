@@ -1,4 +1,3 @@
-const { default: computeSourceMap } = require("sucrase/dist/computeSourceMap");
 const ThawaniClient = require("../index");
 require("dotenv").config();
 
@@ -21,7 +20,7 @@ test("Check if the customer is mapped to Customer class" , () => {
 
 let customer_token = null;
 test("Create a Customer", async () => {
-  const response = await api.customer.create('Muhannad.alrisi@gmail.com'); 
+  const response = await api.customer.create('customer@thawnai.om'); 
   customer_token = response.data.id;
   expect(response.success).toBe(true);
 });
@@ -42,10 +41,10 @@ test("Create a new Session", async () => {
         quantity: 1,
       },
     ],
-    success_url: "https://alrisi.net",
-    cancel_url: "https://alrisi.net",
+    success_url: "https://thawaniclient.net",
+    cancel_url: "https://thawaniclient.net",
     metadata: {
-      customer: "Muhannad AL-Risi",
+      customer: "Ahmed Salim",
       order_id: 10,
     },
   };
